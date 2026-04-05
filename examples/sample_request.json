@@ -1,0 +1,10 @@
+{
+  "origin": "Toronto, ON, Canada",
+  "destination": "Vancouver, BC, Canada",
+  "weight_kg": 420,
+  "cargo_type": "general",
+  "timeline_days": 3,
+  "customer_tier": "preferred",
+  "currency": "CAD",
+  "notes": "Fragile electronics components, handle with care"
+}

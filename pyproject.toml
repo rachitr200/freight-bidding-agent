@@ -1,0 +1,9 @@
+[project]
+name = "amz-freight-bidding-agent-mvp"
+version = "0.1.0"
+description = "Freight bidding agent MVP built with Python, LangGraph, and 
+OpenAI"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

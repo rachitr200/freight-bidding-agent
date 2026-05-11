@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreightAI — AI-Powered Freight Bidding Agent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#2563EB"/>
+          <path d="M6 20h14l4-8H10L6 20z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+          <circle cx="11" cy="23" r="2" fill="#fff"/>
+          <circle cx="21" cy="23" r="2" fill="#fff"/>
+          <path d="M20 12V8h4l2 4" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-name">FreightAI</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#demo">Live demo</a>
+        <a href="#carriers">Carriers</a>
+        <a href="#stack">Tech stack</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="https://github.com/rachitr200/freight-bidding-agent/blob/main/DOCUMENT.md" target="_blank">Architecture doc</a>
+        <a class="btn btn-blue" href="https://github.com/rachitr200/freight-bidding-agent" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <button class="nav-hamburger" id="navToggle" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#how-it-works">How it works</a>
+      <a href="#demo">Live demo</a>
+      <a href="#carriers">Carriers</a>
+      <a href="#stack">Tech stack</a>
+      <a href="https://github.com/rachitr200/freight-bidding-agent" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        LangGraph · OpenAI GPT-4o-mini · FastAPI · Python 3.11
+      </div>
+      <h1>Freight quotes,<br>decided by <span class="gradient-text">AI reasoning</span></h1>
+      <p class="hero-sub">
+        A 6-node LangGraph agent that automates freight quote intake, multi-carrier
+        rate collection, LLM-powered analysis, and markup application —
+        cutting turnaround from 3–24 hours to seconds.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-hero-primary" href="#demo">Try the live demo</a>
+        <a class="btn btn-hero-ghost" href="https://github.com/rachitr200/freight-bidding-agent" target="_blank">View on GitHub</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-num">3–24h <span class="hstat-unit">→ ~0s</span></div>
+          <div class="hstat-label">Quote turnaround</div>
+        </div>
+        <div class="hstat-divider"></div>
+        <div class="hstat">
+          <div class="hstat-num">6 <span class="hstat-unit">nodes</span></div>
+          <div class="hstat-label">LangGraph workflow</div>
+        </div>
+        <div class="hstat-divider"></div>
+        <div class="hstat">
+          <div class="hstat-num">5 <span class="hstat-unit">carriers</span></div>
+          <div class="hstat-label">Evaluated per request</div>
+        </div>
+        <div class="hstat-divider"></div>
+        <div class="hstat">
+          <div class="hstat-num">100 <span class="hstat-unit">%</span></div>
+          <div class="hstat-label">Failure modes handled</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ PROBLEM ═══════════════════════════════════════════════════ -->
+  <section class="section" id="problem">
+    <div class="section-inner">
+      <div class="pill">The problem</div>
+      <h2 class="section-title">Manual quoting is broken</h2>
+      <p class="section-sub">Freight brokers spend hours collecting carrier quotes by phone and email. This agent eliminates that entirely.</p>
+      <div class="problem-grid">
+        <div class="problem-card problem-before">
+          <div class="problem-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Before
+          </div>
+          <div class="problem-num">3–24h</div>
+          <p class="problem-desc">Brokers manually call or email each carrier, collect rates one by one, compare by hand, and calculate markup — a full workday for a single quote.</p>
+        </div>
+        <div class="problem-card problem-after">
+          <div class="problem-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9,12 11,14 15,10"/></svg>
+            After — with this agent
+          </div>
+          <div class="problem-num">~0s</div>
+          <p class="problem-desc">Submit a request. The LangGraph agent validates, queries 5 carriers, uses GPT-4o-mini to pick the best option with reasoning, applies markup, and returns a final quote automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PIPELINE ══════════════════════════════════════════════════ -->
+  <section class="section" id="how-it-works">
+    <div class="section-inner">
+      <div class="pill">Agent workflow</div>
+      <h2 class="section-title">6-node LangGraph pipeline</h2>
+      <p class="section-sub">Each node is independently testable. Conditional edges enforce fail-fast logic — no nested if/else chains. Click any node to expand.</p>
+
+      <div class="pipeline">
+
+        <div class="pipe-row" data-node="0">
+          <div class="pipe-left">
+            <div class="pipe-num">01</div>
+            <div class="pipe-line"></div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">validate_request</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">Pydantic validation catches bad input — missing destination, negative weight, unsupported cargo type — and returns a structured error immediately. No carrier calls are made until input is clean.</p>
+          </div>
+        </div>
+
+        <div class="pipe-row" data-node="1">
+          <div class="pipe-left">
+            <div class="pipe-num">02</div>
+            <div class="pipe-line"></div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">normalize_request</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">Assigns a <code>request_id</code>, derives the lane string (origin → destination), detects domestic vs. international, and classifies urgency from <code>timeline_days</code>: critical (1 day), urgent (2 days), standard (3+).</p>
+          </div>
+        </div>
+
+        <div class="pipe-row" data-node="2">
+          <div class="pipe-left">
+            <div class="pipe-num">03</div>
+            <div class="pipe-line"></div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">collect_rates</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">Queries all 5 Canadian mock carriers. Each quote is filtered by timeout threshold, weight limit, cargo type compatibility, and transit time. Timed-out or rejected carriers move to <code>invalid_quotes</code> with reasons.</p>
+          </div>
+        </div>
+
+        <div class="pipe-row pipe-star" data-node="3">
+          <div class="pipe-left">
+            <div class="pipe-num">04</div>
+            <div class="pipe-line"></div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">llm_analyze_quotes</span>
+              <span class="pipe-badge">Key differentiator</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">All valid quotes and shipment context are passed to OpenAI GPT-4o-mini. The model returns a recommended carrier, natural-language reasoning explaining the choice, risk flags, and a confidence score (0.0–1.0). Most freight tools skip this and just pick the cheapest rate.</p>
+          </div>
+        </div>
+
+        <div class="pipe-row" data-node="4">
+          <div class="pipe-left">
+            <div class="pipe-num">05</div>
+            <div class="pipe-line"></div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">select_best_quote</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">Uses the LLM recommendation when available. If the LLM call fails (timeout, rate limit, outage), falls back gracefully to the cheapest valid rate. The workflow always produces a result and never fails silently.</p>
+          </div>
+        </div>
+
+        <div class="pipe-row" data-node="5">
+          <div class="pipe-left">
+            <div class="pipe-num">06</div>
+          </div>
+          <div class="pipe-card" tabindex="0">
+            <div class="pipe-header">
+              <span class="pipe-name">finalize_quote</span>
+              <svg class="pipe-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+            </div>
+            <p class="pipe-desc">Applies markup (10% standard, 5% preferred — env-variable driven, no code changes needed), sets a 24-hour expiry timestamp, attaches full LLM reasoning to the output payload, and returns the complete structured response.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LIVE DEMO ═════════════════════════════════════════════════ -->
+  <section class="section section-demo" id="demo">
+    <div class="section-inner">
+      <div class="pill">Live demo</div>
+      <h2 class="section-title">Submit a freight request</h2>
+      <p class="section-sub">Hits your real FastAPI backend at <code class="code-inline">localhost:8000</code>. Start the server: <code class="code-inline">uvicorn src.server:app --reload --port 8000</code></p>
+
+      <div class="demo-layout">
+
+        <!-- FORM PANEL -->
+        <div class="panel" id="formPanel">
+          <div class="panel-header">
+            <span class="panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              Request details
+            </span>
+            <div class="api-status">
+              <div class="api-dot" id="apiDot"></div>
+              <span id="apiStatusText">Checking API…</span>
+            </div>
+          </div>
+          <div class="panel-body">
+
+            <div class="form-field">
+              <label for="customerTier">Customer tier</label>
+              <select id="customerTier">
+                <option value="standard">Standard — 10% markup</option>
+                <option value="preferred">Preferred — 5% markup</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="origin">Origin</label>
+                <input id="origin" type="text" value="Toronto, ON, Canada" placeholder="Toronto, ON, Canada" />
+              </div>
+              <div class="form-field">
+                <label for="destination">Destination</label>
+                <input id="destination" type="text" value="Vancouver, BC, Canada" placeholder="Vancouver, BC, Canada" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="weightKg">Weight (kg)</label>
+                <input id="weightKg" type="number" value="420" min="1" max="30000" step="1" />
+              </div>
+              <div class="form-field">
+                <label for="timelineDays">Timeline (days)</label>
+                <input id="timelineDays" type="number" value="3" min="1" max="30" step="1" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="cargoType">Cargo type</label>
+                <select id="cargoType">
+                  <option value="general">General</option>
+                  <option value="fragile">Fragile</option>
+                  <option value="hazardous">Hazardous</option>
+                  <option value="temperature_controlled">Temperature controlled</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="currency">Currency</label>
+                <select id="currency">
+                  <option value="CAD">CAD</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="notes">Notes <span class="label-opt">(optional)</span></label>
+              <input id="notes" type="text" placeholder="e.g. fragile electronics, liftgate required" />
+            </div>
+
+            <button class="submit-btn" id="submitBtn">
+              <span id="submitLabel">Get AI quote</span>
+              <svg id="submitArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+              <span class="submit-spinner" id="submitSpinner" hidden></span>
+            </button>
+
+            <p class="mock-hint">
+              No API running?
+              <button class="link-btn" id="mockBtn">Run mock demo instead</button>
+            </p>
+
+          </div>
+        </div>
+
+        <!-- RESULT PANEL -->
+        <div class="panel" id="resultPanel">
+          <div class="panel-header">
+            <span class="panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              Agent response
+            </span>
+            <span class="result-badge" id="resultBadge">Awaiting request…</span>
+          </div>
+          <div class="panel-body" id="resultBody">
+
+            <div class="result-idle" id="resultIdle">
+              <svg class="result-idle-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <p>Fill in the form and click <strong>Get AI quote</strong> to run the full 6-node pipeline.</p>
+            </div>
+
+            <div class="result-loading" id="resultLoading" hidden>
+              <div class="loading-steps" id="loadingSteps"></div>
+            </div>
+
+            <div class="result-output" id="resultOutput" hidden></div>
+
+            <div class="result-error" id="resultError" hidden>
+              <svg class="error-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p class="error-title">API not reachable</p>
+              <p class="error-desc">Start the server with:</p>
+              <code class="error-code">uvicorn src.server:app --reload --port 8000</code>
+              <button class="link-btn" id="errorMockBtn" style="margin-top:16px">Run mock demo instead</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CARRIERS ══════════════════════════════════════════════════ -->
+  <section class="section" id="carriers">
+    <div class="section-inner">
+      <div class="pill">Carrier network</div>
+      <h2 class="section-title">5 Canadian carriers evaluated</h2>
+      <p class="section-sub">Each carrier has distinct weight limits, cargo restrictions, and pricing profiles. GFL simulates a real-world API timeout — intentionally testing the agent's graceful fallback.</p>
+      <div class="carriers-grid">
+
+        <div class="carrier-card">
+          <div class="carrier-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="carrier-name">Purolator Freight</div>
+          <div class="carrier-profile">Reliable. Strong Ontario &amp; Quebec network. Consistent transit times.</div>
+          <span class="carrier-badge badge-active">Active</span>
+        </div>
+
+        <div class="carrier-card">
+          <div class="carrier-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="carrier-name">Day &amp; Ross</div>
+          <div class="carrier-profile">Competitive LTL pricing. Best cross-Canada lane coverage.</div>
+          <span class="carrier-badge badge-active">Active</span>
+        </div>
+
+        <div class="carrier-card">
+          <div class="carrier-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="carrier-name">Canpar Transport</div>
+          <div class="carrier-profile">Budget option. Weight ceiling 300 kg. Limited cargo types accepted.</div>
+          <span class="carrier-badge badge-active">Active</span>
+        </div>
+
+        <div class="carrier-card">
+          <div class="carrier-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="carrier-name">XTL Transport</div>
+          <div class="carrier-profile">Premium tier. Best-in-class hazmat handling capability.</div>
+          <span class="carrier-badge badge-active">Active</span>
+        </div>
+
+        <div class="carrier-card">
+          <div class="carrier-icon carrier-icon-timeout">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          </div>
+          <div class="carrier-name">GFL Logistics</div>
+          <div class="carrier-profile">Simulates a slow carrier API. Always times out — by design.</div>
+          <span class="carrier-badge badge-timeout">Timeout</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STACK ══════════════════════════════════════════════════════ -->
+  <section class="section" id="stack">
+    <div class="section-inner">
+      <div class="pill">Tech stack</div>
+      <h2 class="section-title">Built with production patterns</h2>
+      <p class="section-sub">Every architectural decision has a documented MVP → production upgrade path.</p>
+      <div class="stack-grid">
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(20,184,166,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="1.8"><circle cx="12" cy="5" r="3"/><circle cx="19" cy="19" r="3"/><circle cx="5" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">LangGraph</div>
+            <div class="stack-role">Workflow orchestration</div>
+            <p class="stack-desc">Stateful 6-node graph. Orchestration is fully separated from business logic. Each node is independently testable. Conditional edges handle fail-fast routing without nested if/else.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(16,185,129,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8"><path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9S3 15.97 3 11a9 9 0 0 1 9-9z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">OpenAI GPT-4o-mini</div>
+            <div class="stack-role">LLM reasoning node</div>
+            <p class="stack-desc">Returns recommended carrier with natural-language reasoning, risk flags, and a 0–1 confidence score. Pluggable — swap for Claude, Gemini, or a local model via the config.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(59,130,246,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.8"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">FastAPI</div>
+            <div class="stack-role">REST API server</div>
+            <p class="stack-desc">Async-native. Exposes <code>/api/quote</code> (POST) and <code>/api/health</code> (GET). Production upgrade: add JWT auth middleware and webhook callbacks for quote delivery.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(168,85,247,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">Pydantic</div>
+            <div class="stack-role">Schema validation</div>
+            <p class="stack-desc">Validates every request before any carrier call is made. Structured field-level error messages. Eliminates an entire class of runtime bugs upstream.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(245,158,11,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">Python 3.11+</div>
+            <div class="stack-role">Core language</div>
+            <p class="stack-desc">Full type annotations throughout. asyncio-ready for parallel carrier calls in production — changes O(n) sequential latency to O(1) with a single refactor.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-icon" style="background:rgba(239,68,68,0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="stack-info">
+            <div class="stack-name">Redis + Postgres</div>
+            <div class="stack-role">Production data layer</div>
+            <p class="stack-desc">Planned upgrade. Redis for 15-minute rate caching on repeat lanes. Postgres for persistent quote history, audit logs, and historical lane pricing fed into the LLM prompt.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA ════════════════════════════════════════════════════════ -->
+  <div class="cta-band">
+    <div class="section-inner">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2>See the full architecture</h2>
+          <p>Design doc covering MVP → production upgrade path, all failure modes, and future roadmap.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-hero-ghost" href="https://github.com/rachitr200/freight-bidding-agent/blob/main/DOCUMENT.md" target="_blank">Read the doc</a>
+          <a class="btn btn-hero-primary" href="https://github.com/rachitr200/freight-bidding-agent" target="_blank">GitHub repo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="section-inner footer-inner">
+      <span>Built by <a href="https://github.com/rachitr200" target="_blank">Rachit Rathore</a> · AI Agent Engineer · Open to work</span>
+      <div class="footer-links">
+        <a href="https://github.com/rachitr200/freight-bidding-agent" target="_blank">GitHub</a>
+        <a href="https://github.com/rachitr200/freight-bidding-agent/blob/main/DOCUMENT.md" target="_blank">Architecture</a>
+        <a href="https://github.com/rachitr200/freight-bidding-agent/blob/main/README.md" target="_blank">README</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

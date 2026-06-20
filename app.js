@@ -43,7 +43,7 @@
 'use strict';
 
 /* ═══════════════════════════ CONFIG ════════════════════════════ */
-const API_BASE   = 'http://localhost:8000';
+const API_BASE = 'https://freight-bidding-agent.onrender.com';
 const API_HEALTH = `${API_BASE}/api/health`;
 const API_QUOTE  = `${API_BASE}/api/quote`;
 
